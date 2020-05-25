@@ -1,0 +1,18 @@
+import glob
+import pandas as pd
+import csv,sys
+import argparse
+
+
+parser = argparse.ArgumentParser(description='PB File name to split')
+parser.add_argument('filepath',metavar='N', type=str,help='Enter the file path')
+parser.add_argument('filename', metavar='N', type=str,help='Enter the filename')
+parser.add_argument('rowstoskip',metavar='N', type=int,help='Enter the number of rows to skip')
+args = parser.parse_args()
+
+
+for f in glob.glob(args.filepath + "/*" + args.filename):
+    usersDf = pd.read_csv(f, skiprows=args.rowstoskip)
+    usersDf.to_csv(f, index=False)
+
+
